@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philip Abu | Portfolio</title>
+  <style>
+    /* ================= CSS VARIABLES ================= */
+    :root {
+      --bg-color: #f8fafc;
+      --text-color: #1e293b;
+      --muted-text: #475569;
+      --card-bg: #ffffff;
+      --header-bg: #0f172a;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --footer-bg: #0f172a;
+    }
+    body.dark {
+      --bg-color: #0f172a;
+      --text-color: #e2e8f0;
+      --muted-text: #94a3b8;
+      --card-bg: #1e293b;
+      --header-bg: #0a1120;
+      --accent: #60a5fa;
+      --accent-hover: #3b82f6;
+      --footer-bg: #0a1120;
+    }
+
+    /* ================= GLOBAL ================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+      scroll-behavior: smooth;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ================= HEADER ================= */
+    header {
+      background: var(--header-bg);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    nav a {
+      margin: 0 1rem;
+      color: white;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* ================= DARK MODE TOGGLE ================= */
+    .toggle-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 0.9rem;
+    }
+    .toggle-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    /* ================= HERO ================= */
+    .hero {
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: white;
+    }
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Profile Picture */
+    .profile-pic {
+      width: 240px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 30%;
+      border: 4px solid var(--accent);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateX(-50px);
+      animation: slideInLeft 1s ease-out forwards;
+    }
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+
+    /* Hero Text */
+    .hero-text {
+      text-align: left;
+      max-width: 550px;
+      opacity: 0;
+      transform: translateX(50px);
+      animation: slideInRight 1s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+    .greeting {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .hero-text h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin-bottom: 2rem;
+      color: #cbd5e1;
+    }
+    .hero-text button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background: var(--accent);
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      animation: pulse 2s infinite;
+    }
+    .hero-text button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    /* ================= SECTIONS ================= */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h3 {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-color);
+    }
+    .about p {
+      text-align: center;
+      max-width: 750px;
+      margin: auto;
+      font-size: 1.1rem;
+      color: var(--muted-text);
+    }
+
+    /* ================= PROJECTS ================= */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.8rem;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .project-card h4 {
+      margin-bottom: 0.6rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .project-card p {
+      font-size: 1rem;
+      color: var(--muted-text);
+    }
+
+
+    /* ================= SKILLS ================= */
+    .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+    .skills-grid li {
+      background: var(--card-bg);
+    }
+     .skills-grid li {
+      border: 1px solid whitesmoke;
+      border-radius: 8px;
+      padding: 0.8rem;
+      text-align: center;
+      font-weight: 500;
+      color: var(--text-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    } 
+    .skills-grid li:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      background: var(--accent);
+      color: white;
+    }
+
+    /* ================= CONTACT ================= */
+    .contact form {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .contact input, .contact textarea {
+      margin-bottom: 1rem;
+      padding: 0.85rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text-color);
+      transition: border 0.3s;
+    }
+    .contact input:focus, .contact textarea:focus {
+      outline: none;
+      border: 1px solid var(--accent);
+    }
+    .contact button {
+      padding: 0.9rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .contact button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--footer-bg);
+      color: #cbd5e1;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    /* ================= KEYFRAMES ================= */
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Philip Abu</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Switch to Dark Mode</button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <img src="profile pic.jpg" alt="Philip Abu" class="profile-pic">
+      <div class="hero-text">
+        <div class="greeting" id="greeting"></div>
+        <h2>👋Hello, I'm Philip Abu </h2>
+        <p>A tech enthusiast passionate about building solutions with code, exploring new technologies, and solving real-world problems.</p>
+        <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Get In Touch</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <h3>About Me</h3>
+    <p>
+      I’m a developer with a strong interest in technology, software engineering, and problem solving. 
+      I enjoy working on projects that combine creativity with functionality, whether it’s web apps, automation, or exploring AI.
+    </p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h3>Projects</h3>
+    <div class="projects">
+      <div class="project-card">
+        <h4>Portfolio Website</h4>
+        <p>A personal website to showcase my skills, projects, and experience in the tech industry.</p>
+      </div>
+      <div class="project-card">
+        <h4>Weather App</h4>
+        <p>A simple web application that provides real-time weather updates using API integration.</p>
+      </div>
+      <div class="project-card">
+        <h4>Task Manager</h4>
+        <p>An app to help users manage tasks efficiently with a clean UI and local storage support.</p>
+      </div>
+      <div class="project-card">
+        <h4>Blog Platform</h4>
+        <p>A full-stack blogging platform allowing users to create, edit, and share blog posts.</p>
+      </div>
+      <div class="project-card">
+        <h4>Chat Application</h4>
+        <p>A real-time chat application using WebSockets for instant messaging between users.</p>
+      </div>
+      <div class="project-card">
+        <h4>E-commerce Site</h4>
+        <p>An online store with product listings, shopping cart, and checkout functionality.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h3>Skills</h3>
+    <ul class="skills-grid">
+      <li>JavaScript</li>
+      <li>HTML & CSS</li>
+      <li>React</li>
+      <li>Node.js</li>
+      <li>Python</li>
+      <li>PHP</li>
+      <li>Git & GitHub</li>
+      <li>SQL & NoSQL</li>
+    </ul>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h3>Contact Me</h3>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Philip Abu | Built with ❤</p>
+  </footer>
+
+  <script>
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      const btn = document.querySelector(".toggle-btn");
+      if (document.body.classList.contains("dark")) {
+        btn.textContent = "🌞 Switch to Light Mode";
+      } else {
+        btn.textContent = "🌙 Switch to Dark Mode";
+      }
+    }
+
+    // Greeting based on time
+    function updateGreeting() {
+      const hour = new Date().getHours();
+      let greeting = "";
+
+      if (hour < 12) {
+        greeting = "🌞 Good Morning!";
+      } else if (hour < 18) {
+        greeting = "🌆 Good Afternoon!";
+      } else {
+        greeting = "🌙 Good Evening!";
+      }
+
+      document.getElementById("greeting").textContent = greeting;
+    }
+
+    // Reveal sections on scroll
+    const sections = document.querySelectorAll("section");
+    const revealOnScroll = () => {
+      const triggerBottom = window.innerHeight * 0.85;
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < triggerBottom) {
+          section.classList.add("visible");
+        }
+      });
+    };
+    window.addEventListener("scroll", revealOnScroll);
+
+    // Run once at load
+    updateGreeting();
+    setInterval(updateGreeting, 60000);
+    revealOnScroll();
+  </script>
+
+</body>
+</html>
