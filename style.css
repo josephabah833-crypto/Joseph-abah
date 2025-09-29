@@ -1,0 +1,148 @@
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .light-mode {
+            background-color: #dde6dd;
+            color: #333;
+        }
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #25652a, #949694);
+        }
+        .dark-mode header {
+            background: linear-gradient(135deg, #390a4f, #075985);
+        }
+        #profile-pic {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            border: 3px solid #0d0707;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 10px 0;
+        }
+        nav {
+            text-align: center;
+            padding: 20px;
+        }
+        nav button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #16721e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .dark-mode nav button {
+            background: #3f1660;
+        }
+        nav button:hover {
+            opacity: 0.9;
+        }
+        section {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            display: none; /* Hidden by default */
+        }
+        section.active {
+            display: block; /* Show when clicked */
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1c1e20;
+            display: inline-block;
+        }
+        .dark-mode h2 {
+            border-bottom-color: #dfe6e8;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        .skills-grid li {
+            background: #e0f7ff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .dark-mode .skills-grid li {
+            background: #2a3b4c;
+        }
+        .project-card {
+            background: #fff;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode .project-card {
+            background: #2a2a2a;
+            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+        }
+        .contact-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 1.1em;
+        }
+        .dark-mode .contact-links a {
+            color: #00c4ff;
+        }
+        .contact-links a:hover {
+            text-decoration: underline;
+        }
+        #mode-toggle {
+            position: fixed;
+            top: 10px;
+            right: 50px;
+            padding: 10px 15px;
+            background: #0a0c0d;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .dark-mode #mode-toggle {
+            background: #aab0b1;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            #profile-pic {
+                width: 100px;
+                height: 100px;
+            }
+            nav button {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+        }
